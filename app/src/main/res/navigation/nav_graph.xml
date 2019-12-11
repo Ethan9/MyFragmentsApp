@@ -3,29 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/welcome">
 
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.myfragmentsapp.FirstFragment"
+        android:name="com.example.myfragmentsapp.MenuFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
-            android:id="@+id/action_firstFragment_to_secondFragment2"
-            app:destination="@id/secondFragment" />
-        <action
             android:id="@+id/action_firstFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.myfragmentsapp.SecondFragment"
+        android:name="com.example.myfragmentsapp.LeaderboardFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" />
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.myfragmentsapp.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_gameFragment_to_addScore"
+            app:destination="@id/addScore" />
+    </fragment>
+    <fragment
+        android:id="@+id/addScore"
+        android:name="com.example.myfragmentsapp.AddScoreFragment"
+        android:label="fragment_add_score"
+        tools:layout="@layout/fragment_add_score" />
+    <fragment
+        android:id="@+id/welcome"
+        android:name="com.example.myfragmentsapp.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcome_to_firstFragment"
+            app:destination="@id/firstFragment" />
+    </fragment>
 </navigation>

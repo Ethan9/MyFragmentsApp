@@ -1,10 +1,10 @@
 package com.example.myfragmentsapp;
 
-public class Leaderboard {
+public class Player {
     protected String name;
     protected float score;
 
-    public Leaderboard(String name, float score) {
+    public Player(String name, float score) {
         this.name = name;
         this.score = score;
     }

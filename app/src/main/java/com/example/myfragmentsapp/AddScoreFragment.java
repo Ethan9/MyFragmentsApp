@@ -7,24 +7,31 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FirstFragment.OnFragmentInteractionListener} interface
+ * {@link AddScoreFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FirstFragment#newInstance} factory method to
+ * Use the {@link AddScoreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FirstFragment extends Fragment {
+public class AddScoreFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,11 +40,11 @@ public class FirstFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button saveButton;
+
     private OnFragmentInteractionListener mListener;
 
 
-    public FirstFragment() {
+    public AddScoreFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +54,11 @@ public class FirstFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FirstFragment.
+     * @return A new instance of fragment AddScoreFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance(String param1, String param2) {
-        FirstFragment fragment = new FirstFragment();
+    public static AddScoreFragment newInstance(String param1, String param2) {
+        AddScoreFragment fragment = new AddScoreFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,7 +79,7 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return inflater.inflate(R.layout.fragment_add_score, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -99,36 +106,70 @@ public class FirstFragment extends Fragment {
         mListener = null;
     }
 
-    Button startButton;
-    NavController navController;
-    Button leaderboardButton;
+    Button saveButton;
+    Button loadButton;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        navController = Navigation.findNavController(view);
-        startButton =view.findViewById(R.id.start_button);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        saveButton = (Button)getView().findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_firstFragment_to_gameFragment);
+                saveToFile("some stuff", "test123.txt");
             }
         });
 
-        leaderboardButton =view.findViewById(R.id.leaderboard_button);
-        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+        loadButton = (Button)getView().findViewById(R.id.load_button);
+        loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_firstFragment_to_secondFragment2);
+                String data = readFromFile("test123.txt");
+                Toast.makeText(getActivity(),data, Toast.LENGTH_LONG).show();
             }
         });
+
+    }
+
+    public void saveToFile(String fileContents, String fileName) {
+        Context context = getActivity();
+        Log.d("ID","file dir = " + context.getFilesDir());
+        try {
+            File fp = new File(context.getFilesDir(), fileName);
+            FileWriter out = new FileWriter(fp);
+            out.write(fileContents);
+            out.close();
+        } catch (IOException e) {
+            Log.d("Me","file error:" + e);
+        }
+    }
+
+    public String readFromFile(String fileName) {
+        Context context = getActivity();
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        BufferedReader in = null;
+        try {
+            File fp = new File(context.getFilesDir(), fileName);
+            in = new BufferedReader(new FileReader(fp));
+            while ((line = in.readLine()) != null)
+                stringBuilder.append(line);
+
+        } catch (FileNotFoundException e) {
+            Log.d("ID", e.getMessage());
+        } catch (IOException e) {
+            Log.d("ID", e.getMessage());
+        }
+
+        Log.d("ID", stringBuilder.toString());
+
+        return stringBuilder.toString();
     }
 
 
+
     /**
-     * This interface must be implemented by activities that contain this
+     * lhis interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.

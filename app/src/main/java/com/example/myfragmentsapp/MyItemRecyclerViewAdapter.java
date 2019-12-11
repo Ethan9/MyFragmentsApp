@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myfragmentsapp.SecondFragment.OnListFragmentInteractionListener;
+import com.example.myfragmentsapp.LeaderboardFragment.OnListFragmentInteractionListener;
 import com.example.myfragmentsapp.dummy.DummyContent.DummyItem;
 
 import java.util.List;

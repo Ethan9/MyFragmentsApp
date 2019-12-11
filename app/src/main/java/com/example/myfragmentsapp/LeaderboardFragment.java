@@ -3,7 +3,6 @@ package com.example.myfragmentsapp;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.myfragmentsapp.dummy.DummyContent.DummyItem;
 
@@ -24,26 +22,34 @@ import java.util.ArrayList;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class SecondFragment extends Fragment {
+public class LeaderboardFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private ArrayList<Leaderboard> leaderboards;
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SecondFragment() {
+    public LeaderboardFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static SecondFragment newInstance(int columnCount) {
-        SecondFragment fragment = new SecondFragment();
+    public static LeaderboardFragment newInstance(int columnCount) {
+        LeaderboardFragment fragment = new LeaderboardFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -53,8 +59,10 @@ public class SecondFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         MainActivity m = (MainActivity)getActivity();
-        leaderboards =m.getLeaderboards();
+        players =m.getPlayers();
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -74,7 +82,7 @@ public class SecondFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyStudentAdapter(leaderboards));
+            recyclerView.setAdapter(new MyLeaderboardAdapter(players));
         }
         return view;
     }
@@ -114,45 +122,4 @@ public class SecondFragment extends Fragment {
 }
 
 
-class MyStudentAdapter extends RecyclerView.Adapter {
-    ArrayList<Leaderboard> leaderboards;
 
-    public MyStudentAdapter(ArrayList<Leaderboard> leaderboards) {
-        this.leaderboards = leaderboards;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_fragment_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder vh=(MyViewHolder)holder;
-        vh.myItemTextView.setText(
-                leaderboards.get(position).getName()
-                        +","+ leaderboards.get(position).getScore()
-        );
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return leaderboards.size();
-    }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView myItemTextView;
-        public MyViewHolder(View v) {
-            super(v);
-            myItemTextView = (TextView)v.findViewById(R.id.myItemTextView);
-        }
-    }
-
-}
