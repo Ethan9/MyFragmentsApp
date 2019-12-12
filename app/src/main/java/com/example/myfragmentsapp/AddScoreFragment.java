@@ -7,12 +7,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -108,39 +112,50 @@ public class AddScoreFragment extends Fragment {
 
     Button saveButton;
     Button loadButton;
+    EditText name;
+    NavController navController;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        saveButton = (Button)getView().findViewById(R.id.save_button);
+
+        final Bundle arguments = getArguments();
+
+        name = (getView().findViewById(R.id.addName));
+        navController = Navigation.findNavController(view);
+        saveButton = (Button) getView().findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToFile("some stuff", "test123.txt");
+                Player player = new Player(name.getText().toString(), arguments.getInt("score", 0));
+                saveToFile(player.toString(), "leaderboard.txt");
+
+                navController.navigate(R.id.action_addScore_to_secondFragment);
             }
         });
 
-        loadButton = (Button)getView().findViewById(R.id.load_button);
+        loadButton = (Button) getView().findViewById(R.id.load_button);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = readFromFile("test123.txt");
-                Toast.makeText(getActivity(),data, Toast.LENGTH_LONG).show();
+                String data = readFromFile("leaderboard.txt");
+                Toast.makeText(getActivity(), data, Toast.LENGTH_LONG).show();
             }
         });
+
 
     }
 
     public void saveToFile(String fileContents, String fileName) {
         Context context = getActivity();
-        Log.d("ID","file dir = " + context.getFilesDir());
+        Log.d("ID", "file dir = " + context.getFilesDir());
         try {
             File fp = new File(context.getFilesDir(), fileName);
-            FileWriter out = new FileWriter(fp);
+            FileWriter out = new FileWriter(fp, true);
             out.write(fileContents);
             out.close();
         } catch (IOException e) {
-            Log.d("Me","file error:" + e);
+            Log.d("Me", "file error:" + e);
         }
     }
 
@@ -165,7 +180,6 @@ public class AddScoreFragment extends Fragment {
 
         return stringBuilder.toString();
     }
-
 
 
     /**

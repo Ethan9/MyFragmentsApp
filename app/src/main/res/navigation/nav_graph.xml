@@ -36,7 +36,11 @@
         android:id="@+id/addScore"
         android:name="com.example.myfragmentsapp.AddScoreFragment"
         android:label="fragment_add_score"
-        tools:layout="@layout/fragment_add_score" />
+        tools:layout="@layout/fragment_add_score" >
+        <action
+            android:id="@+id/action_addScore_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
     <fragment
         android:id="@+id/welcome"
         android:name="com.example.myfragmentsapp.WelcomeFragment"

@@ -57,26 +57,7 @@ public class MainActivity extends AppCompatActivity
         return players;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
 
-    public void addScore(String name, Float score) {
-        players.add(new Player(name, score));
-    }
-
-    public void saveToFile(String fileContents, String fileName) {
-        Context context = getApplicationContext();
-        Log.d("ID","file dir = " + context.getFilesDir());
-        try {
-            File fp = new File(context.getFilesDir(), fileName);
-            FileWriter out = new FileWriter(fp);
-            out.write(fileContents);
-            out.close();
-        } catch (IOException e) {
-            Log.d("Me","file error:" + e);
-        }
-    }
 
 
 

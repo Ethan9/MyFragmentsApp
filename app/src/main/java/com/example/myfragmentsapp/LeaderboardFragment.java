@@ -8,12 +8,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.myfragmentsapp.dummy.DummyContent.DummyItem;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -60,9 +67,17 @@ public class LeaderboardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String[] data = readFromFile("leaderboard.txt").split(",");
+
+
+        for (int i = 0; i < data.length; i+=2) {
+            Player player = new Player(data[i], Float.parseFloat(data[i+1]));
+            players.add(player);
+        }
+
 
         MainActivity m = (MainActivity)getActivity();
-        players =m.getPlayers();
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -105,6 +120,28 @@ public class LeaderboardFragment extends Fragment {
         mListener = null;
     }
 
+
+    public String readFromFile(String fileName) {
+        Context context = getActivity();
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        BufferedReader in = null;
+        try {
+            File fp = new File(context.getFilesDir(), fileName);
+            in = new BufferedReader(new FileReader(fp));
+            while ((line = in.readLine()) != null)
+                stringBuilder.append(line);
+
+        } catch (FileNotFoundException e) {
+            Log.d("ID", e.getMessage());
+        } catch (IOException e) {
+            Log.d("ID", e.getMessage());
+        }
+
+        Log.d("ID", stringBuilder.toString());
+
+        return stringBuilder.toString();
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

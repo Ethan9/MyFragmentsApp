@@ -14,11 +14,11 @@ public class GameObject {
 
 
 
-    public GameObject(float x, float y, float dx, float dy, Drawable image) {
+    public GameObject(float x, float y, Drawable image) {
         this.x = x;
         this.y = y;
-        this.dx = dx;
-        this.dy = dy;
+        dx = 0;
+        dy = 0;
         this.image = image;
         p.setColor(Color.RED);
         p.setTextSize(100);
@@ -37,4 +37,17 @@ public class GameObject {
         image.setBounds((int)x,(int)y,(int)(x+200f),(int)(y+200f));
         image.draw(canvas);
     }
+
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
 }

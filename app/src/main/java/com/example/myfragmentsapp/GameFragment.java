@@ -42,8 +42,6 @@ public class GameFragment extends Fragment {
                 z= event.values[2];
             }
             gameView.setX(x);
-            gameView.setY(y);
-            gameView.setZ(z);
             gameView.invalidate();
         }
         @Override
@@ -59,27 +57,29 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        gameView = new GameView(getContext());
+        GameView.EndListener endListener = new GameView.EndListener() {
+            @Override
+            public void onGameEnd(int score) {
+                gameView.stop();
+                Bundle bundle = new Bundle();
+                bundle.putInt("score", score);
+                navController.navigate(R.id.action_gameFragment_to_addScore, bundle);
+            }
+        };
+        gameView = new GameView(getContext(), endListener);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
 
-    Button next_button;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        next_button =view.findViewById(R.id.next_button);
-        next_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_gameFragment_to_addScore);
-            }
-        });
+
 
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
