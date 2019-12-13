@@ -13,7 +13,6 @@ public class GameObject {
     Paint p = new Paint();
 
 
-
     public GameObject(float x, float y, Drawable image) {
         this.x = x;
         this.y = y;
@@ -24,17 +23,16 @@ public class GameObject {
         p.setTextSize(100);
     }
 
-    void move(Canvas canvas)
-    {
-        x+=dx;
-        y+=dy;
-        if(x>canvas.getWidth() || x<0)
-            dx=-dx;
-        if(y>canvas.getHeight() || y<0)
-            dy=-dy;
+    void move(Canvas canvas) {
+        x += dx;
+        y += dy;
+        if (x > canvas.getWidth() || x < 0)
+            dx = -dx;
+        if (y > canvas.getHeight() || y < 0)
+            dy = -dy;
         //canvas.drawText("Hello", x, y, p);
 
-        image.setBounds((int)x,(int)y,(int)(x+200f),(int)(y+200f));
+        image.setBounds((int) x, (int) y, (int) (x + 200f), (int) (y + 200f));
         image.draw(canvas);
     }
 

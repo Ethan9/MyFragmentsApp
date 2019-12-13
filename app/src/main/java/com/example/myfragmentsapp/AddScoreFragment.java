@@ -134,15 +134,6 @@ public class AddScoreFragment extends Fragment {
             }
         });
 
-        loadButton = (Button) getView().findViewById(R.id.load_button);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = readFromFile("leaderboard.txt");
-                Toast.makeText(getActivity(), data, Toast.LENGTH_LONG).show();
-            }
-        });
-
 
     }
 

@@ -29,10 +29,10 @@ class MyLeaderboardAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder vh=(MyViewHolder)holder;
+        MyViewHolder vh = (MyViewHolder) holder;
         vh.myItemTextView.setText(
                 players.get(position).getName()
-                        +","+ players.get(position).getScore()
+                        + "," + players.get(position).getScore()
         );
 
     }
@@ -45,9 +45,10 @@ class MyLeaderboardAdapter extends RecyclerView.Adapter {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView myItemTextView;
+
         public MyViewHolder(View v) {
             super(v);
-            myItemTextView = (TextView)v.findViewById(R.id.myItemTextView);
+            myItemTextView = (TextView) v.findViewById(R.id.myItemTextView);
         }
     }
 

@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set fullscreen
-        players.add(new Player("Bob",55f));
-        players.add(new Player("Mary",70f));
-        players.add(new Player("Jim",35f));
+        players.add(new Player("Bob", 55f));
+        players.add(new Player("Mary", 70f));
+        players.add(new Player("Jim", 35f));
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<Player> getPlayers() {
         return players;
     }
-
-
-
-
-
 
 
 }

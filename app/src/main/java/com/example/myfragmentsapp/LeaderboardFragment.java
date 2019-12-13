@@ -70,13 +70,13 @@ public class LeaderboardFragment extends Fragment {
         String[] data = readFromFile("leaderboard.txt").split(",");
 
 
-        for (int i = 0; i < data.length; i+=2) {
-            Player player = new Player(data[i], Float.parseFloat(data[i+1]));
+        for (int i = 0; i < data.length; i += 2) {
+            Player player = new Player(data[i], Float.parseFloat(data[i + 1]));
             players.add(player);
         }
 
 
-        MainActivity m = (MainActivity)getActivity();
+        MainActivity m = (MainActivity) getActivity();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -142,6 +142,7 @@ public class LeaderboardFragment extends Fragment {
 
         return stringBuilder.toString();
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

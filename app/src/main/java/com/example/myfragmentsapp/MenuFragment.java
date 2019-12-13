@@ -109,7 +109,7 @@ public class MenuFragment extends Fragment {
 
 
         navController = Navigation.findNavController(view);
-        startButton =view.findViewById(R.id.start_button);
+        startButton = view.findViewById(R.id.start_button);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +117,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        leaderboardButton =view.findViewById(R.id.leaderboard_button);
+        leaderboardButton = view.findViewById(R.id.leaderboard_button);
         leaderboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

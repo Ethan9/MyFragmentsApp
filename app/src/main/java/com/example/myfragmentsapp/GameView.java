@@ -31,7 +31,7 @@ public class GameView extends SurfaceView implements Runnable {
     int falseWall;
     EndListener endListener;
     String[] questions = {"5 is the pH of a weak acid?", "A lemon is a strong acid?", "Bleach is a weak alkali?", "Distilled water is a neutral substance?", "An acid and an alkali reaction creates hydrogen?", "Potassium is a reactive metal?", "Acids can treat bee stings?", "Ca is the chemical symbol for calcium?", "The periodic table contains compounds?", "H is the chemical symbol for hydrogen?"};
-    Boolean[] answers = {true, false, false, true, false, true, false, true, false, true };
+    Boolean[] answers = {true, false, false, true, false, true, false, true, false, true};
     int questionNumber = 0;
     int score = 0;
     SoundPool sounds;
@@ -47,15 +47,15 @@ public class GameView extends SurfaceView implements Runnable {
         this.endListener = endListener;
         player = new GameObject(500, 1000, ContextCompat.getDrawable(context, R.drawable.scientist));
         gameObjs.add(player);
-        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         lose = sounds.load(context, R.raw.lose, 1);
         win = sounds.load(context, R.raw.win, 1);
         pWhite = new Paint();
         pWhite.setColor(Color.WHITE);
         pTrue = new Paint();
-        pTrue.setColor(Color.GREEN);
+        pTrue.setColor(Color.BLUE);
         pFalse = new Paint();
-        pFalse.setColor(Color.RED);
+        pFalse.setColor(Color.MAGENTA);
         pQuestion = new Paint();
         pQuestion.setColor(Color.BLACK);
         pQuestion.setTextSize(50);
@@ -84,9 +84,9 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawRect(0, 0, 2000, 3000, pWhite);
             canvas.drawRect(0, 0, trueWall, 3000, pTrue);
             canvas.drawRect(falseWall, 0, 1500, 3000, pFalse);
-            canvas.drawText("Score: " + score,300, 100, p);
-            canvas.drawText("False" ,800, 820, p);
-            canvas.drawText("True" ,0, 800, p);
+            canvas.drawText("Score: " + score, 300, 100, p);
+            canvas.drawText("False", 800, 820, p);
+            canvas.drawText("True", 0, 800, p);
             canvas.drawRect(0, 1800, 10000, 20000, pWhite);
             canvas.drawText(questions[questionNumber], 0, 1900, pQuestion);
 

@@ -37,21 +37,19 @@ public class GameFragment extends Fragment {
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                x= event.values[0];
-                y= event.values[1];
-                z= event.values[2];
+                x = event.values[0];
+                y = event.values[1];
+                z = event.values[2];
             }
             gameView.setX(x);
             gameView.invalidate();
         }
+
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
         }
     };
-
-
-
 
 
     @Override
@@ -72,30 +70,19 @@ public class GameFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
 
-
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(listener,  accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(listener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         constraintLayout = view.findViewById(R.id.viewFrame);
         constraintLayout.addView(gameView);
     }
-
-
-
-
-
-
-
-
 
 
     /**
